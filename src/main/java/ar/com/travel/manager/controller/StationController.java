@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ar.com.travel.manager.interfaces.station.StationInterface;
@@ -16,7 +17,8 @@ import ar.com.travel.manager.model.request.StationRequest;
 import ar.com.travel.manager.model.response.GenericErrorResponse;
 import jakarta.validation.Valid;
 
-@RestController("/stations")
+@RestController
+@RequestMapping("/stations")
 public class StationController {
 	
 	@Autowired
