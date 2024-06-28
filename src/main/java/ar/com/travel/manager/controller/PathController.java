@@ -25,7 +25,7 @@ public class PathController {
 	private PathInterface pathInterface;
 
 	@PostMapping
-	public ResponseEntity<?> createPath(@Valid @RequestBody PathRequest request) throws PathServiceException {
+	public ResponseEntity<?> createPath(@Valid @RequestBody PathRequest request) {
 		pathInterface.createPath(request);
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}

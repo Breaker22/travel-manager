@@ -11,6 +11,6 @@ public interface PathInterface {
 	 * @param request - request del camino
 	 * @throws PathServiceException
 	 */
-	public void createPath(PathRequest request) throws PathServiceException;
+	public void createPath(PathRequest request);
 
 }
