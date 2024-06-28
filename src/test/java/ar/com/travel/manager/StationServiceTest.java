@@ -9,7 +9,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import ar.com.travel.manager.model.entity.Station;
+import ar.com.travel.manager.helper.TestMockHelper;
 import ar.com.travel.manager.model.exception.StationtException;
 import ar.com.travel.manager.model.repository.StationRepository;
 import ar.com.travel.manager.model.request.StationRequest;
@@ -35,7 +35,8 @@ class StationServiceTest {
 
 		Assertions.assertDoesNotThrow(() -> StationtException.class);
 	}
-	
+
+	@Test
 	void testCreateStation_shouldThrowEx() {
 		StationRequest request = new StationRequest();
 
@@ -43,13 +44,9 @@ class StationServiceTest {
 		request.setStationId(Long.valueOf(2));
 
 		stationService.createStation(request);
-		
-		Mockito.when(stationRepo.findById(Mockito.anyLong())).thenReturn(Optional.of(mockStation()));
+
+		Mockito.when(stationRepo.findById(Mockito.anyLong())).thenReturn(Optional.of(TestMockHelper.mockStation()));
 
 		Assertions.assertThrows(StationtException.class, () -> stationService.createStation(request));
-	}
-
-	private Station mockStation() {
-		return new Station(Long.valueOf(2), "Barcelona");
 	}
 }

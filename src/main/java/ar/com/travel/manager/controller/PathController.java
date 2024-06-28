@@ -11,33 +11,33 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ar.com.travel.manager.interfaces.station.StationInterface;
-import ar.com.travel.manager.model.exception.StationtException;
-import ar.com.travel.manager.model.request.StationRequest;
+import ar.com.travel.manager.interfaces.path.PathInterface;
+import ar.com.travel.manager.model.exception.PathServiceException;
+import ar.com.travel.manager.model.request.PathRequest;
 import ar.com.travel.manager.model.response.GenericErrorResponse;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/stations")
-public class StationController {
-	
+@RequestMapping("/paths")
+public class PathController {
+
 	@Autowired
-	private StationInterface stationInterface;
-	
+	private PathInterface pathInterface;
+
 	@PostMapping
-	public ResponseEntity<?> createStation(@Valid @RequestBody StationRequest request) {
-		stationInterface.createStation(request);
+	public ResponseEntity<?> createPath(@Valid @RequestBody PathRequest request) {
+		pathInterface.createPath(request);
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
-	
-	@ExceptionHandler(StationtException.class)
-	private ResponseEntity<GenericErrorResponse> handleExComitent(StationtException ex) {
+
+	@ExceptionHandler(PathServiceException.class)
+	private ResponseEntity<GenericErrorResponse> handleExComitent(PathServiceException ex) {
 		GenericErrorResponse errorResponse = new GenericErrorResponse();
-		
-		errorResponse.setPath("/stations");
+
+		errorResponse.setPath("/paths");
 		errorResponse.setMessage(ex.getMessage());
 		errorResponse.setTimestamp(LocalDateTime.now().toString());
-		
+
 		return ResponseEntity.status(ex.getHttpStatus()).body(errorResponse);
 	}
 }
