@@ -22,6 +22,7 @@ http://localhost:8080/actuator/health
 
 mvn clean install
 docker build -t travel-manager .
+docker run -p8080:8080 travel-manager:latest
 ```
 
 ## Dependencias
