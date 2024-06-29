@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ import ar.com.travel.manager.model.exception.PathServiceException;
 import ar.com.travel.manager.model.request.PathRequest;
 import ar.com.travel.manager.model.response.GenericErrorResponse;
 import jakarta.validation.Valid;
+import jakarta.websocket.server.PathParam;
 
 @RestController
 @RequestMapping("/paths")
@@ -28,6 +30,12 @@ public class PathController {
 	public ResponseEntity<?> createPath(@Valid @RequestBody PathRequest request) {
 		pathInterface.createPath(request);
 		return ResponseEntity.status(HttpStatus.CREATED).build();
+	}
+
+	@GetMapping("/{sourceId}/{destinationId}")
+	public ResponseEntity<?> getBestPath(@PathParam(value = "sourceId") Long sourceId,
+			@PathParam(value = "destinationId") Long destinationId) {
+		return ResponseEntity.ok().body(pathInterface.getBestPath(sourceId, destinationId));
 	}
 
 	@ExceptionHandler(PathServiceException.class)
