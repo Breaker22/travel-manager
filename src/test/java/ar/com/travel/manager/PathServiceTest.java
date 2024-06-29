@@ -61,14 +61,13 @@ class PathServiceTest {
 	}
 
 	@Test
-	void testCalulatePath_shouldNotThrowEx() {
+	void testCalulatePath_shouldCalulateShortPath() {
 		Mockito.when(stationRepo.findById(Mockito.anyLong())).thenReturn(Optional.of(TestMockHelper.mockStation()));
 
 		Mockito.when(pathRepository.findAll()).thenReturn(mockListPaths());
 
 		PathResponse response = pathService.getBestPath(Long.valueOf(12), Long.valueOf(11));
 
-		Assertions.assertDoesNotThrow(() -> PathServiceException.class);
 		Assertions.assertEquals(Double.valueOf(130), response.getCost());
 	}
 
